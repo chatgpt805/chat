@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        iframe { width: 100%; height: 500px; border: none; margin-top: 20px; }
+    </style>
+    <script>
+        let urls = [
+            "https://example.com",
+            "https://anotherexample.com"
+        ];
+        
+        let visitorCount = localStorage.getItem("visitorCount") || 0;
+        visitorCount++;
+        localStorage.setItem("visitorCount", visitorCount);
+        
+        function updateVisitorCount() {
+            document.getElementById("visitorCount").innerText = visitorCount;
+        }
+        
+        function startTrafficGen() {
+            let index = 0;
+            setInterval(() => {
+                document.getElementById("trafficFrame").src = urls[index];
+                index = (index + 1) % urls.length;
+            }, 5000); // Change URL every 5 seconds
+        }
+        
+        window.onload = updateVisitorCount;
+    </script>
+</head>
+<body>
+    <h1>Basic Traffic Generator</h1>
+    <p>Visitors Count: <span id="visitorCount">0</span></p>
+    <button onclick="startTrafficGen()">Start Traffic</button>
+    <iframe id="trafficFrame"></iframe>
+</body>
+</html>
